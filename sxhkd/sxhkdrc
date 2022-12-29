@@ -1,0 +1,158 @@
+#archlinux-logout
+super + x
+    archlinux-logout
+
+#Pavucontrol
+super + v
+    pavucontrol
+
+#Xkill
+super + Escape
+    xkill
+
+# Changing the keyboard layout
+alt + @space + 1
+	setxkbmap -layout us -variant colemak_dh
+alt + @space + 2
+	setxkbmap -layout us
+
+#archlinux tweak tool
+ctrl + alt + t
+    archlinux-tweak-tool
+
+#################################################################
+# SUPER + SHIFT KEYS
+#################################################################
+
+#Terminal
+super + shift + Return
+	st
+
+super + s
+	env LC_ALL=en_IN.UTF-8 dmenu_run
+
+#reload sxhkd:
+super + shift + s
+	pkill -USR1 -x sxhkd
+
+#quit qtile
+super + shift + q
+	pkill qtile
+
+super + u
+	betterlockscreen -l
+
+super + i
+        cat ~/.config/scripts/emoji_list | rofi -dmenu -i -p "Select your emoji: " | cut -d' ' -f1 | tr -d '\n' | xclip -sel c
+
+# These two shortcuts help in keeping the clipboard content saved until reboot
+super + ctrl + x
+        echo "$(xclip -o -sel c)" >> /tmp/tmpclip.txt
+
+super + ctrl + v
+        cat /tmp/tmpclip.txt | uniq | env LC_ALL=en_IN.UTF-8 dmenu -p "Clipboard entires: " -l 20 | tr -d '\n' | xclip -sel c
+
+super + shift + z
+	killps
+
+# Bookmark the important links and open them with firefox
+super + shift + t
+        bookmarkit
+
+super + shift + ctrl + t
+        cat .local/share/bookmarks.txt | uniq | env LC_ALL=en_IN.UTF-8 dmenu -p "Select from your bookmarks" -i -l 20 | cut -d\" -f2 | tr -d '\n' | xclip -sel c
+
+super + shift + x
+        gst-launch-1.0 v4l2src device=/dev/video0 ! xvimagesink
+
+# Search for files in computer
+super + d
+        find $HOME -type f | env LC_ALL=en_IN.UTF-8 dmenu -i -l 20 -p "Search for files: " | tr -d '\n' | xclip -sel c
+
+# Notflix program slightly modified by me
+super + shift + f
+        notflix
+
+#################################################################
+#     Launching Applications
+#################################################################
+
+alt + ctrl + w
+	firefox
+
+alt + ctrl + e
+	thunar
+
+alt + ctrl + q
+	qbittorrent
+
+#################################################################
+#     SCREENSHOTS
+#################################################################
+
+#screeenshooter
+Print
+     xfce4-screenshooter
+
+#################################################################
+#     MULTIMEDIA KEYS
+#################################################################
+
+#Raises volume
+XF86AudioRaiseVolume
+    amixer set Master 2%+
+
+#Lowers volume
+XF86AudioLowerVolume
+    amixer set Master 2%-
+
+#Mute
+XF86AudioMute
+    amixer -D pulse set Master 1+ toggle
+
+#Playerctl works for Pragha, Spotify and others
+#Delete the line for playerctl if you want to use mpc
+#and replace it with the corresponding code
+#mpc works for e.g.ncmpcpp
+#mpc toggle
+#mpc next
+#mpc prev
+#mpc stop
+
+#PLAY
+XF86AudioPlay
+    playerctl play-pause
+
+#Next
+XF86AudioNext
+    playerctl next
+
+#previous
+XF86AudioPrev
+    playerctl previous
+
+#Stop
+XF86AudioStop
+    playerctl stop
+
+#Brightness up
+XF86MonBrightnessUp
+    brightnessctl -d "intel_backlight" set +5%
+
+#Brightness down
+XF86MonBrightnessDown
+    brightnessctl -d "intel_backlight" set 5%-
+
+#################################################################
+#################################################################
+##################   DESKTOP SPECIFIC    ########################
+#################################################################
+#################################################################
+
+#################################################################
+# CTRL + ALT KEYS
+#################################################################
+
+#Picom Toggle
+ctrl + alt + o
+    ~/.config/qtile/scripts/picom-toggle.sh
